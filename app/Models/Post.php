@@ -9,6 +9,9 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'body']; // Allow mass assignment for these fields
+
+
     public function comments()
 {
     return $this->hasMany(Comment::class);

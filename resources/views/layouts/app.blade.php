@@ -381,10 +381,14 @@
         }
 
         .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem; /* Space between grid items */
+    padding: 1rem; /* Add padding around the grid */
+    background-color: #f8f9fa; /* Light background for contrast */
+    border-radius: 0.5rem; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
 
         /* Sidebar Improvements */
         .sidebar {

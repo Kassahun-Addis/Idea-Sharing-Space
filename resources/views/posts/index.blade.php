@@ -76,23 +76,6 @@
                                 <button class="btn btn-link p-0" type="button" data-bs-toggle="dropdown">
                                     <i class="fas fa-ellipsis-v"></i>
                                 </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a href="{{ route('posts.edit', $post) }}" class="dropdown-item">
-                                            <i class="fas fa-edit me-2"></i>Edit
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <form action="{{ route('posts.destroy', $post) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="dropdown-item text-danger" 
-                                                    onclick="return confirm('Are you sure?')">
-                                                <i class="fas fa-trash-alt me-2"></i>Delete
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -124,6 +107,26 @@
                             </span>
                         @endforeach
                     </div>
+                    <div class="post-date">
+                        <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end" style="display: flex; flex-direction: row; gap: 1rem; margin-top: 1rem;">
+                        <li>
+                            <a href="{{ route('posts.edit', $post) }}" class="dropdown-item">
+                                <i class="fas fa-edit me-2"></i>Edit
+                            </a>
+                        </li>
+                        <li style="margin-top: 0.25rem;">
+                            <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="dropdown-item text-danger" 
+                                        onclick="return confirm('Are you sure?')">
+                                    <i class="fas fa-trash-alt me-2"></i>Delete
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </div>
         @endforeach

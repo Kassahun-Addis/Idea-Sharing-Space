@@ -955,33 +955,9 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <h5 class="mb-3">About BlogSpace</h5>
-                    <p>A platform for sharing thoughts and connecting with others.</p>
-                </div>
-                <div>
-                    <h5 class="mb-3">Quick Links</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">About</a></li>
-                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h5 class="mb-3">Follow Us</h5>
-                    <div class="social-links">
-                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="mt-4 mb-4">
+    <footer class="footer" style="text-align: center;">
+            <hr class="mt-0 mb-0">
             <p class="text-center mb-0">&copy; 2024 BlogSpace. All rights reserved.</p>
-        </div>
     </footer>
 
     <!-- Bootstrap JS and dependencies -->

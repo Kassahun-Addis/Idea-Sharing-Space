@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Top Bar -->
-    <div class="header-top">
+    <!-- <div class="header-top">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center py-2">
                 <div class="header-contact">
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Main Header -->
     <div class="header-main">
@@ -28,6 +28,9 @@
                 <div class="header-content">
                     <h1 class="header-title">Welcome to BlogSpace</h1>
                     <p class="header-subtitle">Discover stories, thinking, and expertise</p>
+                    <div>
+                        <p>A platform for sharing thoughts and connecting with others.</p>
+                    </div>
                     <div class="header-search">
                         <form action="{{ route('posts.index') }}" method="GET">
                             <div class="search-box">

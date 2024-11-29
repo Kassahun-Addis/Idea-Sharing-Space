@@ -9,14 +9,51 @@
     <div class="content-header">
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <h2 class="h3 mb-0">Latest Posts</h2>
-                <p class="text-muted mb-0">Discover the latest thoughts and ideas</p>
+                <h2 class="h3 mb-0">
+                    @if(request('search'))
+                        Search Results for "{{ request('search') }}"
+                    @elseif(request('category'))
+                        {{ ucfirst(request('category')) }} Posts
+                    @else
+                        Latest Posts
+                    @endif
+                </h2>
+                <p class="text-muted mb-0">
+                    @if(request('search'))
+                        Found {{ $posts->total() }} {{ Str::plural('result', $posts->total()) }}
+                    @elseif(request('category'))
+                        Showing posts in {{ request('category') }} category
+                    @else
+                        Discover the latest thoughts and ideas
+                    @endif
+                </p>
             </div>
-            <a href="{{ route('posts.create') }}" class="btn btn-primary">
-                <i class="fas fa-plus-circle me-2"></i>New Post
-            </a>
+            <div class="d-flex gap-2">
+                @if(request('search') || request('category'))
+                    <a href="{{ route('posts.index') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-times me-2"></i>Clear Filters
+                    </a>
+                @endif
+                <a href="{{ route('posts.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-2"></i>New Post
+                </a>
+            </div>
         </div>
     </div>
+
+    <!-- Add this after the content header if no posts are found -->
+    @if($posts->isEmpty())
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            @if(request('search'))
+                No posts found matching "{{ request('search') }}". Try different keywords or <a href="{{ route('posts.index') }}">view all posts</a>.
+            @elseif(request('category'))
+                No posts found in this category. <a href="{{ route('posts.index') }}">View all posts</a>.
+            @else
+                No posts found.
+            @endif
+        </div>
+    @endif
 
     <!-- Success Message -->
     @if(session('success'))
@@ -94,6 +131,42 @@
 
     <!-- Pagination -->
     <div class="d-flex justify-content-center mt-4">
-        {{ $posts->links() }}
+        {{ $posts->appends(request()->query())->links() }}
     </div>
 @endsection
+
+<style>
+    .alert-info {
+        background: rgba(99, 102, 241, 0.1);
+        border: none;
+        color: #6366f1;
+        padding: 1rem;
+        border-radius: 12px;
+        margin: 1rem 0;
+    }
+
+    .badge {
+        font-weight: 500;
+        padding: 0.5em 0.75em;
+    }
+
+    .alert-info a {
+        color: inherit;
+        text-decoration: underline;
+    }
+
+    .alert-info a:hover {
+        text-decoration: none;
+    }
+
+    .btn-outline-secondary {
+        border: 2px solid #e5e7eb;
+        color: #4b5563;
+    }
+
+    .btn-outline-secondary:hover {
+        background: #f3f4f6;
+        border-color: #d1d5db;
+        color: #374151;
+    }
+</style>

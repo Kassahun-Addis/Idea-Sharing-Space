@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Post;
+use App\Models\Category;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,7 @@ class ViewServiceProvider extends ServiceProvider
                 'totalPosts' => Post::count(),
                 'totalComments' => \App\Models\Comment::count(),
                 'totalReplies' => \App\Models\Reply::count(),
+                'categories' => Category::withCount('posts')->get(),
             ]);
         });
     }

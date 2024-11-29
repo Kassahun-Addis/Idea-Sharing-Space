@@ -80,7 +80,11 @@
             background: var(--primary-gradient);
             color: white;
         }
-
+        ul {
+    list-style: none; /* Remove bullets from all unordered lists */
+    padding: 0;      /* Remove default padding */
+            margin: 0;       /* Remove default margin */
+        }
         /* Content Grid */
         .content-grid {
             display: grid;
@@ -407,14 +411,35 @@
             align-items: center;
             padding: 0.75rem 1rem;
             color: #4b5563;
-            border-radius: 8px;
+            text-decoration: none;
+            border-radius: 12px;
             transition: all 0.3s ease;
+            margin-bottom: 0.5rem;
         }
 
         .category-link:hover {
             background: var(--primary-gradient);
             color: white;
             transform: translateX(5px);
+        }
+
+        .category-link.active {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .category-link .badge {
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .category-link:not(.active) .badge {
+            background: var(--primary-gradient);
+        }
+
+        .category-list {
+            display: flex;
+            flex-direction: column;
         }
 
         /* Card Improvements */
@@ -488,40 +513,390 @@
         .sidebar::-webkit-scrollbar {
             width: 0px;
         }
+
+        .search-form {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-input {
+            border-radius: 50px !important;
+            padding-left: 1rem !important;
+            padding-right: 3rem !important;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #e5e7eb;
+        }
+
+        .search-input:focus {
+            background: white;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            border-color: #6366f1;
+        }
+
+        .search-form .btn {
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .search-form {
+                width: 100%;
+                margin: 1rem 0;
+            }
+        }
+
+        /* Header Styles */
+        .main-header {
+            margin-bottom: 3rem;
+        }
+
+        .header-top {
+            background: #0f172a;
+            padding: 0.75rem 0;
+            font-size: 0.875rem;
+        }
+
+        .header-contact {
+            color: #cbd5e1;
+        }
+
+        .header-contact a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .header-contact a:hover {
+            color: white;
+        }
+
+        .header-social .social-link {
+            color: #cbd5e1;
+            margin-left: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .header-social .social-link:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .header-main {
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            color: white;
+            padding: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .header-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-subtitle {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .header-search {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-box {
+            display: flex;
+            background: white;
+            border-radius: 100px;
+            padding: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            outline: none;
+            background: transparent;
+        }
+
+        .search-box button {
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer Styles */
+        .main-footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            margin-top: 6rem;
+        }
+
+        .footer-top {
+            padding: 5rem 0 4rem;
+        }
+
+        .footer-brand {
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-desc {
+            opacity: 0.8;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: #3730a3;
+            transform: translateY(-3px);
+            color: white;
+        }
+
+        .footer-title {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a i {
+            margin-right: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .footer-newsletter-text {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            outline: none;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .newsletter-btn {
+            background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .footer-contact i {
+            margin-right: 1rem;
+            color: #3730a3;
+        }
+
+        .footer-bottom {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copyright {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-bottom-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom-links a:hover {
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+
+            .header-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .footer-bottom-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .footer-bottom-links {
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="{{ route('posts.index') }}">
-                <i class="fas fa-feather-alt me-2"></i>BlogSpace
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('posts.create') }}">
-                            <i class="fas fa-plus-circle me-1"></i> Create Post
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-search me-1"></i> Search</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    
 
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Welcome to BlogSpace</h1>
-            <p class="lead">Share your thoughts and connect with others</p>
-        </div>
-    </header>
+    <!-- Include Header Partial -->
+    @include('partials._header')
 
     <!-- Main Content -->
     <main class="py-4">
@@ -552,30 +927,23 @@
                     <div class="sidebar-section">
                         <h5 class="mb-3">Categories</h5>
                         <div class="category-list">
-                            <a href="#" class="category-link">
-                                <i class="fas fa-laptop-code me-2"></i>
-                                Technology
+                            <a href="{{ route('posts.index') }}" 
+                               class="category-link {{ !request('category') ? 'active' : '' }}">
+                                <i class="fas fa-th-large me-2"></i>
+                                All Posts
+                                <span class="badge rounded-pill bg-primary ms-auto">{{ $totalPosts }}</span>
                             </a>
-                            <a href="#" class="category-link">
-                                <i class="fas fa-heart me-2"></i>
-                                Lifestyle
-                            </a>
-                            <a href="#" class="category-link">
-                                <i class="fas fa-plane me-2"></i>
-                                Travel
-                            </a>
+                            @foreach($categories as $category)
+                                <a href="{{ route('posts.index', ['category' => $category->slug]) }}" 
+                                   class="category-link {{ request('category') == $category->slug ? 'active' : '' }}">
+                                    <i class="{{ $category->icon }} me-2"></i>
+                                    {{ $category->name }}
+                                    <span class="badge rounded-pill bg-primary ms-auto">{{ $category->posts_count }}</span>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
 
-                    <!-- Popular Tags -->
-                    <div class="sidebar-section">
-                        <h5 class="mb-3">Popular Tags</h5>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="#" class="badge bg-primary">Laravel</a>
-                            <a href="#" class="badge bg-primary">PHP</a>
-                            <a href="#" class="badge bg-primary">Web Dev</a>
-                        </div>
-                    </div>
                 </aside>
 
                 <!-- Main Content Area -->

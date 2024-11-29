@@ -8,10 +8,33 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with(['comments.replies'])->latest()->paginate(10);
-        return view('posts.index', compact('posts'));
+        $query = Post::with(['comments.replies', 'categories']);
+
+        // Search functionality
+        if ($request->search) {
+            $searchTerm = $request->search;
+            $query->where(function($q) use ($searchTerm) {
+                $q->where('title', 'LIKE', "%{$searchTerm}%")
+                  ->orWhere('body', 'LIKE', "%{$searchTerm}%")
+                  ->orWhereHas('categories', function($q) use ($searchTerm) {
+                      $q->where('name', 'LIKE', "%{$searchTerm}%");
+                  });
+            });
+        }
+
+        // Category filter
+        if ($request->category) {
+            $query->whereHas('categories', function($q) use ($request) {
+                $q->where('slug', $request->category);
+            });
+        }
+
+        $posts = $query->latest()->paginate(10)->withQueryString();
+        $categories = Category::withCount('posts')->get();
+
+        return view('posts.index', compact('posts', 'categories'));
     }
 
     public function create()

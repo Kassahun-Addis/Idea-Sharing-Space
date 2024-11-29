@@ -37,7 +37,7 @@
 
         main {
             flex: 1;
-            padding: 2rem 0;
+            /* padding: 2rem 0; */
         }
 
         /* Header Styles */
@@ -125,16 +125,7 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
-
-        /* Sidebar */
-        .sidebar {
-            position: sticky;
-            top: 100px;
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
-        }
+        
 
         /* Responsive Adjustments */
         @media (max-width: 768px) {
@@ -359,6 +350,8 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 1rem;
+            position: relative;
+            min-height: calc(100vh - 300px);
         }
 
         @media (max-width: 992px) {
@@ -372,6 +365,10 @@
             display: flex;
             flex-direction: column;
             gap: 2rem;
+            position: relative;
+            z-index: 1;
+            min-height: 100%;
+            overflow-y: auto;
         }
 
         .content-header {
@@ -379,6 +376,8 @@
             padding: 1.5rem;
             border-radius: 20px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: relative;
+            z-index: 1;
         }
 
         .posts-grid {
@@ -390,12 +389,14 @@
         /* Sidebar Improvements */
         .sidebar {
             position: sticky;
-            top: 100px;
-            height: fit-content;
+            top: 20px;
+            height: calc(100vh - 200px);
             background: white;
             border-radius: 20px;
-            padding: 1.5rem;
+            /* padding: 1.5rem; */
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
 
         .sidebar-section {
@@ -439,6 +440,7 @@
 
         .category-list {
             display: flex;
+            margin: 1rem;
             flex-direction: column;
         }
 
@@ -472,15 +474,14 @@
 
         /* Stats Section */
         .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            margin: 1rem;
             gap: 0.75rem;
         }
 
         .stat-card {
             background: var(--primary-gradient);
             color: white;
-            padding: 1rem;
+            gap: 0.5rem;
             border-radius: 12px;
             text-align: center;
             transition: transform 0.3s ease;
@@ -499,14 +500,6 @@
         .stat-card small {
             font-size: 0.875rem;
             opacity: 0.9;
-        }
-
-        /* Make sidebar sticky but scrollable if content is too long */
-        .sidebar {
-            position: sticky;
-            top: 100px;
-            max-height: calc(100vh - 120px);
-            overflow-y: auto;
         }
 
         /* Hide scrollbar but keep functionality */
@@ -890,6 +883,174 @@
                 justify-content: center;
             }
         }
+
+        /* Custom Scrollbar for Sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+                max-height: none;
+                height: auto;
+                margin-bottom: 1rem;
+                overflow: visible;
+            }
+
+            .main-content {
+                width: 100%;
+                overflow: visible;
+            }
+
+            /* Collapse categories on mobile */
+            .category-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .category-link {
+                flex: 1 1 auto;
+                min-width: calc(50% - 0.5rem);
+                padding: 0.5rem;
+                font-size: 0.875rem;
+            }
+
+            /* Adjust stats grid for mobile */
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.5rem;
+            }
+
+            .stat-card {
+                padding: 0.75rem;
+            }
+        }
+
+        /* Container adjustments */
+        .container {
+            width: 100%;
+            /* padding-right: 15px;
+            padding-left: 15px; */
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        @media (min-width: 1200px) {
+            /* .container {
+                max-width: 1140px;
+            } */
+        }
+
+        /* Page Wrapper */
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            /* padding: 0 1rem; */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 20px;
+            /* padding: 1.5rem; */
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            /* padding: 1.5rem; */
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Desktop Layout */
+        @media (min-width: 769px) {
+            .page-wrapper {
+                flex-direction: row;
+            }
+
+            .sidebar {
+                width: 250px;
+                position: sticky;
+                top: 20px;
+                height: calc(100vh - 100px);
+                overflow-y: auto;
+            }
+
+            .main-content {
+                flex: 1;
+                min-width: 0;
+            }
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 768px) {
+            .sidebar {
+                order: -1; /* Places sidebar above main content */
+                width: 100%;
+                max-height: 300px; /* Adjust this value as needed */
+                overflow-y: auto;
+            }
+
+            .category-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.5rem;
+            }
+
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+        }
+
+        /* Scrollbar Styles */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 </head>
 <body>
@@ -906,7 +1067,7 @@
                 <aside class="sidebar">
                     <!-- Profile Section -->
                     <div class="sidebar-section">
-                        <h5 class="mb-3">Quick Stats</h5>
+                        <h5 class="mb-3" style="text-align: center;">Quick Stats</h5>
                         <div class="stats-grid">
                             <div class="stat-card">
                                 <h3 class="mb-0">{{ $totalPosts }}</h3>
@@ -925,7 +1086,7 @@
 
                     <!-- Categories Section -->
                     <div class="sidebar-section">
-                        <h5 class="mb-3">Categories</h5>
+                        <h5 class="mb-3" style="text-align: center;">Categories</h5>
                         <div class="category-list">
                             <a href="{{ route('posts.index') }}" 
                                class="category-link {{ !request('category') ? 'active' : '' }}">

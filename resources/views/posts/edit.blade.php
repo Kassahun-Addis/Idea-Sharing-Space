@@ -1,33 +1,33 @@
 @extends('layouts.app')
 
-@section('title', 'Create New Post')
+@section('title', 'Edit Post')
 
 @section('content')
 <div class="content-header mb-4">
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            <h2 class="h3 mb-0">Create New Post</h2>
-            <p class="text-muted mb-0">Share your thoughts with the world</p>
+            <h2 class="h3 mb-0">Edit Post</h2>
+            <p class="text-muted mb-0">Update your post content</p>
         </div>
-        <a href="{{ route('posts.index') }}" class="btn btn-outline-primary">
-            <i class="fas fa-arrow-left me-2"></i>Back to Posts
+        <a href="{{ route('posts.show', $post) }}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Post
         </a>
     </div>
 </div>
 
 <div class="card">
     <div class="card-body p-4">
-        <form action="{{ route('posts.store') }}" method="POST" class="post-form">
+        <form action="{{ route('posts.update', $post) }}" method="POST" class="post-form">
             @csrf
-            
+            @method('PUT')
+
             <div class="mb-4">
                 <label for="title" class="form-label h6 mb-3">Post Title</label>
                 <input type="text" 
                        name="title" 
                        id="title" 
                        class="form-control form-control-lg @error('title') is-invalid @enderror" 
-                       placeholder="Enter your post title"
-                       value="{{ old('title') }}"
+                       value="{{ old('title', $post->title) }}"
                        required>
                 @error('title')
                     <div class="invalid-feedback">{{ $message }}</div>
@@ -40,8 +40,7 @@
                           id="body" 
                           class="form-control @error('body') is-invalid @enderror" 
                           rows="8" 
-                          placeholder="Write your post content here..."
-                          required>{{ old('body') }}</textarea>
+                          required>{{ old('body', $post->body) }}</textarea>
                 @error('body')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -57,7 +56,7 @@
                                    name="categories[]" 
                                    id="category{{ $category->id }}" 
                                    value="{{ $category->id }}"
-                                   {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}>
+                                   {{ in_array($category->id, old('categories', $post->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
                             <label class="btn btn-outline-category" for="category{{ $category->id }}">
                                 <i class="{{ $category->icon }} me-2"></i>
                                 {{ $category->name }}
@@ -71,9 +70,9 @@
             </div>
 
             <div class="d-flex justify-content-end gap-3">
-                <a href="{{ route('posts.index') }}" class="btn btn-light">Cancel</a>
+                <a href="{{ route('posts.show', $post) }}" class="btn btn-light">Cancel</a>
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-paper-plane me-2"></i>Publish Post
+                    <i class="fas fa-save me-2"></i>Update Post
                 </button>
             </div>
         </form>
@@ -180,4 +179,4 @@
         color: white;
     }
 </style>
-@endsection
+@endsection 

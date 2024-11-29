@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Reply;
+use App\Models\Comment;
+use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
-    public function store(Request $request, $commentId)
+    public function store(Request $request, Comment $comment)
     {
-        $request->validate(['body' => 'required']);
-        Reply::create([
-            'comment_id' => $commentId,
-            'author' => 'Anonymous', // Replace with actual user data
-            'body' => $request->body,
+        $validated = $request->validate([
+            'body' => 'required'
         ]);
-        return redirect()->back();
+
+        $comment->replies()->create([
+            'body' => $validated['body'],
+            'author' => 'Anonymous', // Replace with auth()->user()->name when authentication is implemented
+        ]);
+
+        return back()->with('success', 'Reply added successfully!');
+    }
+
+    public function destroy(Reply $reply)
+    {
+        $reply->delete();
+        return back()->with('success', 'Reply deleted successfully!');
     }
 }

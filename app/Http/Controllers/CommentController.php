@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Comment;
+use App\Models\Post;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, $postId)
-{
-    $request->validate(['body' => 'required']);
-    Comment::create([
-        'post_id' => $postId,
-        'author' => 'Anonymous', // Replace with actual user data
-        'body' => $request->body,
-    ]);
-    return redirect()->route('posts.index');
-}
+    public function store(Request $request, Post $post)
+    {
+        $validated = $request->validate([
+            'body' => 'required'
+        ]);
+
+        $post->comments()->create([
+            'body' => $validated['body'],
+            'author' => 'Anonymous', // Replace with auth()->user()->name when authentication is implemented
+        ]);
+
+        return back()->with('success', 'Comment added successfully!');
+    }
+
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
+        return back()->with('success', 'Comment deleted successfully!');
+    }
 }

@@ -2,49 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('comments.replies')->get();
+        $posts = Post::with(['comments.replies'])->latest()->paginate(10);
         return view('posts.index', compact('posts'));
     }
 
     public function create()
     {
-        return view('posts.create'); // Ensure you have resources/views/posts/create.blade.php
+        $categories = Category::all();
+        return view('posts.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
-        $request->validate(['title' => 'required', 'body' => 'required']);
-        Post::create($request->all());
-        return redirect()->route('posts.index');
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'categories' => 'required|array|min:1'
+        ]);
+
+        $post = Post::create([
+            'title' => $validated['title'],
+            'body' => $validated['body']
+        ]);
+
+        $post->categories()->attach($validated['categories']);
+
+        return redirect()->route('posts.index')->with('success', 'Post created successfully!');
     }
 
     public function show(Post $post)
     {
-        return view('posts.show', compact('post')); // Show a single post
+        $post->load('comments.replies');
+        return view('posts.show', compact('post'));
     }
 
-    // public function edit(Post $post)
-    // {
-    //     return view('posts.edit', compact('post')); // Ensure you have this view
-    // }
+    public function edit(Post $post)
+    {
+        $categories = Category::all();
+        return view('posts.edit', compact('post', 'categories'));
+    }
 
-    // public function update(Request $request, Post $post)
-    // {
-    //     $request->validate(['title' => 'required', 'body' => 'required']);
-    //     $post->update($request->all());
-    //     return redirect()->route('posts.index');
-    // }
+    public function update(Request $request, Post $post)
+    {
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'categories' => 'required|array|min:1'
+        ]);
 
-    // public function destroy(Post $post)
-    // {
-    //     $post->delete();
-    //     return redirect()->route('posts.index');
-    // }
+        $post->update([
+            'title' => $validated['title'],
+            'body' => $validated['body']
+        ]);
+
+        $post->categories()->sync($validated['categories']);
+
+        return redirect()->route('posts.show', $post)->with('success', 'Post updated successfully!');
+    }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
+    }
 }

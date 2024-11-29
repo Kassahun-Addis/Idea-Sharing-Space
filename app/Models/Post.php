@@ -11,9 +11,13 @@ class Post extends Model
 
     protected $fillable = ['title', 'body']; // Allow mass assignment for these fields
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 
     public function comments()
-{
-    return $this->hasMany(Comment::class);
-}
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

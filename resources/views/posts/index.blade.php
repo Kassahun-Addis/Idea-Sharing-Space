@@ -108,7 +108,9 @@
                         @endforeach
                     </div>
                     <div class="post-date">
-                        <small class="text-muted">{{ $post->created_at->diffForHumans() }}</small>
+                        <small class="text-muted">
+                            {{ $post->created_at ? $post->created_at->diffForHumans() : 'No date available' }}
+                        </small>
                     </div>
                     <ul class="dropdown-menu dropdown-menu-end" style="display: flex; flex-direction: row; gap: 1rem; margin-top: 1rem;">
                         <li>

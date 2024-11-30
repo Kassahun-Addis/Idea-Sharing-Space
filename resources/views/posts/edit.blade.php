@@ -16,12 +16,12 @@
 </div>
 
 <div class="card">
-    <div class="card-body p-4">
+    <div class="card-body p-4" style="padding: 20px; margin: 10px;">
         <form action="{{ route('posts.update', $post) }}" method="POST" class="post-form">
             @csrf
             @method('PUT')
 
-            <div class="mb-4">
+            <div class="mb-4" style="margin-bottom: 15px;">
                 <label for="title" class="form-label h6 mb-3">Post Title</label>
                 <input type="text" 
                        name="title" 
@@ -34,7 +34,7 @@
                 @enderror
             </div>
 
-            <div class="mb-4">
+            <div class="mb-4" style="margin-bottom: 15px;">
                 <label for="body" class="form-label h6 mb-3">Post Content</label>
                 <textarea name="body" 
                           id="body" 
@@ -46,9 +46,9 @@
                 @enderror
             </div>
 
-            <div class="mb-4">
-                <label class="form-label h6 mb-3">Categories</label>
-                <div class="category-grid">
+            <div class="mb-4" style="margin-bottom: 15px;">
+                <label class="form-label h6 mb-3" style="margin-bottom: 20px;">Categories</label>
+                <div class="category-grid" style="margin-top: 20px; margin-bottom: 30px;">
                     @foreach($categories as $category)
                         <div class="category-option">
                             <input type="checkbox" 
@@ -150,8 +150,8 @@
     }
 
     .category-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        display: flex;
+        flex-wrap: wrap;
         gap: 1rem;
     }
 

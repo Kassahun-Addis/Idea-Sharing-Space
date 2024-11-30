@@ -107,11 +107,6 @@
             flex-direction: column;
         }
 
-        .card-body {
-            padding: 2rem;
-            flex: 1;
-        }
-
         /* Footer */
         .footer {
             background: #1f2937;
@@ -178,9 +173,11 @@
             transform: translateY(-8px);
             box-shadow: 0 12px 35px rgba(0,0,0,0.08);
         }
-
+       
         .card-body {
-            padding: 2.5rem;
+            padding: 2rem;
+            flex: 1;
+            gap: 4rem;
         }
 
         /* Button Styles */
@@ -364,11 +361,12 @@
         .main-content {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1rem;
             position: relative;
             z-index: 1;
             min-height: 100%;
             overflow-y: auto;
+            padding-left: 4rem;
         }
 
         .content-header {
@@ -1071,7 +1069,7 @@
                 <aside class="sidebar">
                     <!-- Profile Section -->
                     <div class="sidebar-section">
-                        <h5 class="mb-3" style="text-align: center;">Quick Stats</h5>
+                        <h3 class="mb-0" style="text-align: center;">Quick Stats</h3>
                         <div class="stats-grid">
                             <div class="stat-card">
                                 <h3 class="mb-0">{{ $totalPosts }}</h3>
@@ -1090,20 +1088,20 @@
 
                     <!-- Categories Section -->
                     <div class="sidebar-section">
-                        <h5 class="mb-3" style="text-align: center;">Categories</h5>
+                        <h3 class="mb-0" style="text-align: center;">Categories</h3>
                         <div class="category-list">
                             <a href="{{ route('posts.index') }}" 
                                class="category-link {{ !request('category') ? 'active' : '' }}">
                                 <i class="fas fa-th-large me-2"></i>
                                 All Posts
-                                <span class="badge rounded-pill bg-primary ms-auto">{{ $totalPosts }}</span>
+                                <span class="badge rounded-pill bg-primary ms-auto" style="min-width: 15px; width: auto; text-align: center; display: inline-block;">{{ $totalPosts }}</span>
                             </a>
                             @foreach($categories as $category)
                                 <a href="{{ route('posts.index', ['category' => $category->slug]) }}" 
                                    class="category-link {{ request('category') == $category->slug ? 'active' : '' }}">
                                     <i class="{{ $category->icon }} me-2"></i>
                                     {{ $category->name }}
-                                    <span class="badge rounded-pill bg-primary ms-auto">{{ $category->posts_count }}</span>
+                                    <span class="badge rounded-pill bg-primary ms-auto" style="min-width: 15px; width: auto; text-align: center; display: inline-block;">{{ $category->posts_count }}</span>
                                 </a>
                             @endforeach
                         </div>
@@ -1124,6 +1122,23 @@
             <hr class="mt-0 mb-0">
             <p class="text-center mb-0">&copy; 2024 BlogSpace. All rights reserved.</p>
     </footer>
+
+    <!-- Add this before closing body tag -->
+    <script>
+        // Auto-hide success messages after 3 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            let successAlert = document.querySelector('.alert-success');
+            if (successAlert) {
+                setTimeout(function() {
+                    successAlert.style.transition = 'opacity 0.5s ease';
+                    successAlert.style.opacity = '0';
+                    setTimeout(function() {
+                        successAlert.remove();
+                    }, 500);
+                }, 3000);
+            }
+        });
+    </script>
 
     <!-- Bootstrap JS and dependencies -->
     @vite('resources/js/app.js')

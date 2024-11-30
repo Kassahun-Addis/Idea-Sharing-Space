@@ -370,23 +370,24 @@
         }
 
         .content-header {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 20px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            background-color: #f8f9fa; /* Light background for contrast */
+            margin: 1rem 1rem 0rem 0rem;
+            padding: 0rem 0rem 2rem 1rem;
+            border-radius: 0.5rem; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
             position: relative;
             z-index: 1;
         }
 
         .posts-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem; /* Space between grid items */
-    padding: 1rem; /* Add padding around the grid */
-    background-color: #f8f9fa; /* Light background for contrast */
-    border-radius: 0.5rem; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem; /* Space between grid items */
+            padding: 1rem; /* Add padding around the grid */
+            background-color: #f8f9fa; /* Light background for contrast */
+            border-radius: 0.5rem; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
 
         /* Sidebar Improvements */
         .sidebar {
@@ -584,7 +585,7 @@
         .header-main {
             background: linear-gradient(135deg, #1e40af 0%, #3730a3 100%);
             color: white;
-            padding: 4rem 0;
+            padding: 3rem 0;
             position: relative;
             overflow: hidden;
         }
